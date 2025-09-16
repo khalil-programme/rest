@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Menu</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background:#f9f9f9;}
+    h1 { text-align: center; }
+    h2 { margin-top: 25px; }
+    .menu-item { display: flex; justify-content: space-between; margin: 6px 0; padding: 6px; background: #fff; border-radius: 6px; }
+    button { background: green; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px; }
+    button:hover { background: darkgreen; }
+    #orderModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                  background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    #orderContent { background: white; padding: 20px; border-radius: 10px; width: 400px; max-height: 80%; overflow-y: auto; }
+    #orderList { margin-top: 10px; }
+    .close { background: red; }
+  </style>
+</head>
+<body>
+
+<h1>🍴 Welcome To Royaumme</h1>
+
+<!-- Bouton View Order -->
+<div style="text-align:center; margin: 20px;">
+  <button onclick="openOrder()">👀 VIEW ORDER</button>
+</div>
+
+<!-- Menu -->
+<div id="menu">
+
+  <h2>🥗 Salads</h2>
+  <div class="menu-item">🥒 Arabian Vegetarian Salad – 9$ <button onclick="addToOrder('Arabian Vegetarian Salad',9)">ORDER NOW</button></div>
+  <div class="menu-item">🥬 Fatouch – 6$ <button onclick="addToOrder('Fatouch',6)">ORDER NOW</button></div>
+  <div class="menu-item">🥗 Lettuce Salad – 2$ <button onclick="addToOrder('Lettuce Salad',2)">ORDER NOW</button></div>
+  <div class="menu-item">🥙 Mixed Salad – 12$ <button onclick="addToOrder('Mixed Salad',12)">ORDER NOW</button></div>
+  <div class="menu-item">🌮 Mexican Salad – 10$ <button onclick="addToOrder('Mexican Salad',10)">ORDER NOW</button></div>
+  <div class="menu-item">🍅 Tomatoes Salad – 1$ <button onclick="addToOrder('Tomatoes Salad',1)">ORDER NOW</button></div>
+  <div class="menu-item">🌿 Taboule – 5$ <button onclick="addToOrder('Taboule',5)">ORDER NOW</button></div>
+
+  <h2>🍳 Eggs & Omelettes</h2>
+  <div class="menu-item">🍳 Omelette – 5$ <button onclick="addToOrder('Omelette',5)">ORDER NOW</button></div>
+  <div class="menu-item">🥚 Oeuf – 2$ <button onclick="addToOrder('Oeuf',2)">ORDER NOW</button></div>
+
+  <h2>🥪 Sandwiches & Pasta</h2>
+  <div class="menu-item">🥑🍗 Chicken Avocado – 9$ <button onclick="addToOrder('Chicken Avocado',9)">ORDER NOW</button></div>
+  <div class="menu-item">🍟🍗 Chicken Wedjes – 12$ <button onclick="addToOrder('Chicken Wedjes',12)">ORDER NOW</button></div>
+  <div class="menu-item">🥙 Kafta Sandwich – 3$ <button onclick="addToOrder('Kafta Sandwich',3)">ORDER NOW</button></div>
+  <div class="menu-item">🥩 Lahme Sandwich – 3$ <button onclick="addToOrder('Lahme Sandwich',3)">ORDER NOW</button></div>
+  <div class="menu-item">🌯 Tawouk Sandwich – 3$ <button onclick="addToOrder('Tawouk Sandwich',3)">ORDER NOW</button></div>
+  <div class="menu-item">🍝 Maacaroni White Sauce – 10$ <button onclick="addToOrder('Maacaroni White Sauce',10)">ORDER NOW</button></div>
+  <div class="menu-item">🍅🍝 Maacaroni Red Sauce – 9$ <button onclick="addToOrder('Maacaroni Red Sauce',9)">ORDER NOW</button></div>
+  <div class="menu-item">🌿🍝 Maacaroni Pesto Sauce – 11$ <button onclick="addToOrder('Maacaroni Pesto Sauce',11)">ORDER NOW</button></div>
+
+  <h2>🍕 Pizza & Grill</h2>
+  <div class="menu-item">🍕 Pizza Barbeque – 10$ <button onclick="addToOrder('Pizza Barbeque',10)">ORDER NOW</button></div>
+  <div class="menu-item">🇱🇧🍕 Pizza Lebanese – 9$ <button onclick="addToOrder('Pizza Lebanese',9)">ORDER NOW</button></div>
+  <div class="menu-item">🍕 Pizza Peperoni – 10$ <button onclick="addToOrder('Pizza Peperoni',10)">ORDER NOW</button></div>
+  <div class="menu-item">🌯 Shawarma – 11$ <button onclick="addToOrder('Shawarma',11)">ORDER NOW</button></div>
+  <div class="menu-item">🥩 Steak – 12$ <button onclick="addToOrder('Steak',12)">ORDER NOW</button></div>
+  <div class="menu-item">🌮 Chicken Wrap – 9$ <button onclick="addToOrder('Chicken Wrap',9)">ORDER NOW</button></div>
+
+  <h2>🍦 Ice Cream</h2>
+  <div class="menu-item">🍫🍦 Chocolate Ice Cream – 3$ <button onclick="addToOrder('Chocolate Ice Cream',3)">ORDER NOW</button></div>
+  <div class="menu-item">🍨 White Ice Cream – 3$ <button onclick="addToOrder('White Ice Cream',3)">ORDER NOW</button></div>
+
+  <h2>🍔 Fast Food</h2>
+  <div class="menu-item">🍔 Hamburger – 10$ <button onclick="addToOrder('Hamburger',10)">ORDER NOW</button></div>
+  <div class="menu-item">🍗🍔 Chicken Burger – 9$ <button onclick="addToOrder('Chicken Burger',9)">ORDER NOW</button></div>
+  <div class="menu-item">🌯 Fajita – 12$ <button onclick="addToOrder('Fajita',12)">ORDER NOW</button></div>
+  <div class="menu-item">🌭 Hot Dog – 8$ <button onclick="addToOrder('Hot Dog',8)">ORDER NOW</button></div>
+  <div class="menu-item">🍟 French Fries – 5$ <button onclick="addToOrder('French Fries',5)">ORDER NOW</button></div>
+  <div class="menu-item">🥔 Wedjes – 5$ <button onclick="addToOrder('Wedjes',5)">ORDER NOW</button></div>
+  <div class="menu-item">🍅 Ketchup – 0.05$ <button onclick="addToOrder('Ketchup',0.05)">ORDER NOW</button></div>
+
+  <h2>☕ Drinks & Beverages</h2>
+  <div class="menu-item">☕ Nespresso – 2$ <button onclick="addToOrder('Nespresso',2)">ORDER NOW</button></div>
+  <div class="menu-item">🍊 Orange Juice – 2$ <button onclick="addToOrder('Orange Juice',2)">ORDER NOW</button></div>
+  <div class="menu-item">🍓🥤 Strawberry Shake – 3$ <button onclick="addToOrder('Strawberry Shake',3)">ORDER NOW</button></div>
+  <div class="menu-item">🍫🥤 Twix Shake – 3$ <button onclick="addToOrder('Twix Shake',3)">ORDER NOW</button></div>
+  <div class="menu-item">💧 Water – 0.05$ <button onclick="addToOrder('Water',0.05)">ORDER NOW</button></div>
+  <div class="menu-item">🥤 Pepsi – 1$ <button onclick="addToOrder('Pepsi',1)">ORDER NOW</button></div>
+  <div class="menu-item">🥤 Mirinda – 1$ <button onclick="addToOrder('Mirinda',1)">ORDER NOW</button></div>
+  <div class="menu-item">🥤 7 Up – 1$ <button onclick="addToOrder('7 Up',1)">ORDER NOW</button></div>
+  <div class="menu-item">☕ Nescafe – 4$ <button onclick="addToOrder('Nescafe',4)">ORDER NOW</button></div>
+  <div class="menu-item">🥛🥤 Milk Shake – 2$ <button onclick="addToOrder('Milk Shake',2)">ORDER NOW</button></div>
+  <div class="menu-item">🍫🥤 Kinder Shake – 3$ <button onclick="addToOrder('Kinder Shake',3)">ORDER NOW</button></div>
+  <div class="menu-item">☕ Latte – 4$ <button onclick="addToOrder('Latte',4)">ORDER NOW</button></div>
+  <div class="menu-item">🍫☕ Hot Chocolate – 3$ <button onclick="addToOrder('Hot Chocolate',3)">ORDER NOW</button></div>
+  <div class="menu-item">🍫🥤 Chocolate Shake – 2$ <button onclick="addToOrder('Chocolate Shake',2)">ORDER NOW</button></div>
+  <div class="menu-item">☕ Black Coffee – 2$ <button onclick="addToOrder('Black Coffee',2)">ORDER NOW</button></div>
+  <div class="menu-item">🍺 Beer – 2$ <button onclick="addToOrder('Beer',2)">ORDER NOW</button></div>
+  <div class="menu-item">🍌🍓 Banana & Strawberry – 2$ <button onclick="addToOrder('Banana & Strawberry',2)">ORDER NOW</button></div>
+</div>
+
+<!-- Modal Order -->
+<div id="orderModal">
+  <div id="orderContent">
+    <h2>🛒 Your Order</h2>
+    <div id="orderList"></div>
+    <h3 id="totalPrice"></h3>
+    <button onclick="sendOrder()">📩 SEND ORDER</button>
+    <button class="close" onclick="closeOrder()">❌ Close</button>
+  </div>
+</div>
+
+<script>
+  let order = [];
+
+  function addToOrder(item, price) {
+    let qty = prompt("Enter quantity for " + item + ":");
+    if(qty && !isNaN(qty) && qty > 0){
+      order.push({item, price, qty: parseInt(qty)});
+      alert(qty + " x " + item + " added to order!");
+    }
+  }
+
+  function openOrder() {
+    document.getElementById("orderModal").style.display = "flex";
+    displayOrder();
+  }
+
+  function closeOrder() {
+    document.getElementById("orderModal").style.display = "none";
+  }
+
+  function displayOrder() {
+    let orderList = document.getElementById("orderList");
+    orderList.innerHTML = "";
+    let total = 0;
+    order.forEach(o => {
+      let div = document.createElement("div");
+      let lineTotal = o.price * o.qty;
+      div.textContent = o.qty + " x " + o.item + " – " + lineTotal.toFixed(2) + "$";
+      orderList.appendChild(div);
+      total += lineTotal;
+    });
+    document.getElementById("totalPrice").textContent = "Total: " + total.toFixed(2) + "$";
+  }
+
+  function sendOrder() {
+    let total = order.reduce((sum,o)=>sum+o.price*o.qty,0).toFixed(2);
+    let body = "Your order:\n\n";
+    order.forEach(o=> body += o.qty + " x " + o.item + " – " + (o.price*o.qty).toFixed(2) + "$\n");
+    body += "\nTotal: " + total + "$";
+
+    // Ouvre Gmail directement
+    let url = "https://mail.google.com/mail/?view=cm&fs=1"
+            + "&to=KHALILMOURAD@GMAIL.COM"
+            + "&su=" + encodeURIComponent("New Order")
+            + "&body=" + encodeURIComponent(body);
+
+    window.open(url, "_blank");
+  }
+</script>
+
+</body>
+</html>
